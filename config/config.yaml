@@ -1,0 +1,31 @@
+reference:
+  name: "mm10"
+  chrom_sizes_url: "https://www.encodeproject.org/files/mm10_no_alt.chrom.sizes/@@download/mm10_no_alt.chrom.sizes.tsv"
+  fasta_url: "https://www.encodeproject.org/files/mm10_no_alt_analysis_set_ENCODE/@@download/mm10_no_alt_analysis_set_ENCODE.fasta.gz"
+  blacklist_url: "https://raw.githubusercontent.com/Boyle-Lab/Blacklist/master/lists/Blacklist_v1/mm10-blacklist.bed.gz"
+
+samples:
+  p53_WT:
+    experiment: "SRR832846"
+    control: "SRR832847"
+  p53_KO:
+    experiment: "SRR832848"
+    control: "SRR832849"
+
+bpnet_params:
+  input_len: 2114
+  output_len: 1000
+  macs_g: "mm"
+  splits:
+    train: ["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17"]
+    val: ["chr18"]
+    test: ["chr19"]
+  outlier_quantile: 0.99
+  outlier_scale_factor: 1.2
+  neg_to_pos_ratio: 4
+  flank_size: 1057
+  filters: 64
+  num_dilation_layers: 8
+  conv_kernel_size: 21
+  profile_kernel_size: 75
+  loss_weights: [1, 100]

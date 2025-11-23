@@ -1,0 +1,13 @@
+name: bpnet_sherlock
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.7
+  - pip
+  - pip:
+    - git+https://github.com/kundajelab/bpnet.git
+    - tensorflow-gpu==2.4.1 # Critical for BPNet
+    - pandas
+    - pybigwig
+    - tqdm

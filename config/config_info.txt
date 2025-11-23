@@ -1,0 +1,15 @@
+# This is the corresponding ENCODE download link for the file that's in $OAK/akundaje/zhangby/mouse-atlas/reference/mm10.chrom.sizes
+# Notably, in the ENCODE reference genome files, there's another file called mm10.chrom.sizes named the same as that in boyang's dir
+# However, when comparing the contents of these files, boyang's version comes from the linked file 'no_alt'
+mm10_chrom_sizes_download_link: "https://www.encodeproject.org/files/mm10_no_alt.chrom.sizes/@@download/mm10_no_alt.chrom.sizes.tsv"
+
+# This is the corresponding ENCODE download link for the file that's in $OAK/zhangby/mouse-atlas/reference/mm10_no_alt_analysis_set_ENCODE.fasta
+# I confirmed these files are the exact same with sha256sum, which produced the same hash
+mm10_no_alt_analysis_set_ENCODE_download_link: "https://www.encodeproject.org/files/mm10_no_alt_analysis_set_ENCODE/@@download/mm10_no_alt_analysis_set_ENCODE.fasta.gz"
+
+# The mm10 blacklist was found via a reference to the blacklist repo in the bpnet repo. i.e. In https://github.com/kundajelab/bpnet/wiki/Download-test-data
+# Linked is: https://github.com/Boyle-Lab/Blacklist/ which contains https://raw.githubusercontent.com/Boyle-Lab/Blacklist/master/lists/Blacklist_v1/mm10-blacklist.bed.gz
+# In boyang's folder this exact file is then slopped with bedtools by 1057 on both sides. Both the original nonslopped slopped files were confirmed the same with sha256sum
+# Where $CHROM_SIZES refers to the above link, and mm10-blacklist.bed is the link provided, the following command run on sherlock produces the blacklist file used in other p53 atac pancreas processing
+# ml load biology; ml load bedtools; bedtools slop -i mm10-blacklist.bed -g $CHROM_SIZES -b 1057 > mm10-blacklist.slop1057.bed
+mm10_blacklist_bed_download_link: "https://raw.githubusercontent.com/Boyle-Lab/Blacklist/master/lists/Blacklist_v1/mm10-blacklist.bed.gz"

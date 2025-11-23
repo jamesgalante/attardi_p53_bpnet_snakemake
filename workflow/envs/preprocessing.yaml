@@ -1,0 +1,8 @@
+name: preprocessing
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.7 # IDR is a Python tool, pinning version helps stability
+  - macs2      # Required for peak calling rules
+  - idr

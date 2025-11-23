@@ -1,0 +1,12 @@
+configfile: "config/config.yaml"
+
+include: "rules/0_references.smk"
+include: "rules/1_alignment.smk"
+include: "rules/2_processing.smk"
+include: "rules/3_peaks.smk"
+include: "rules/4_inputs.smk"
+include: "rules/5_training.smk"
+
+rule all:
+  input:
+    expand("results/{sample}/bpnet_model/evaluation/predictions_metrics.json", sample=config["samples"])
