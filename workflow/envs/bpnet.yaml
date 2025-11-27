@@ -5,9 +5,19 @@ channels:
 dependencies:
   - python=3.7
   - pip
+  - py2bit
+  - cython
+  - gcc_linux-64
+  - gxx_linux-64
+  - cudatoolkit=11.0
+  - cudnn=8.0
+  - samtools
+  - bamtools
+  - bedtools
+  - ucsc-bedgraphtobigwig 
   - pip:
     - git+https://github.com/kundajelab/bpnet.git
-    - tensorflow-gpu==2.4.1 # Critical for BPNet
+    - tensorflow-gpu==2.4.1
     - pandas
     - pybigwig
     - tqdm

@@ -7,7 +7,6 @@ rule call_peaks_macs2_full:
     peaks = "results/{sample}/data/macs2/full_peaks.narrowPeak"
   params:
     out_dir = "results/{sample}/data/macs2",
-    name = "full",
     g_size = config["bpnet_params"]["macs_g"]
   resources:
     mem = "16G",
@@ -17,8 +16,8 @@ rule call_peaks_macs2_full:
     """
     macs2 callpeak \
       -t {input.exp} -c {input.ctl} \
-      -f BAM -n {params.name} --outdir {params.out_dir} \
-      -p 1e-3 -g {params.g_size}
+      -f BAM -n full --outdir {params.out_dir} \
+      -q 0.05 -g {params.g_size}
     """
 
 # 2. Create Pseudoreplicates
@@ -80,7 +79,7 @@ rule run_idr:
     p1 = "results/{sample}/data/idr/peaks_pr00_peaks.narrowPeak",
     p2 = "results/{sample}/data/idr/peaks_pr01_peaks.narrowPeak"
   output:
-    final_peaks = "results/{sample}/data/peaks.bed",
+    final_peaks = "results/{sample}/data/idr_peaks.bed",
     plot = "results/{sample}/data/idr/idr_plot.png"
   params:
     idr_out = "results/{sample}/data/idr/idr_results.txt"

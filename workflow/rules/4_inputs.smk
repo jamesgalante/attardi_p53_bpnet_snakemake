@@ -4,11 +4,13 @@ rule prepare_outlier_json:
     minus = "results/{sample}/data/experiment_minus.bw",
     ctl_plus = "results/{sample}/data/control_plus.bw",
     ctl_minus = "results/{sample}/data/control_minus.bw",
-    peaks = "results/{sample}/data/peaks.bed"
+    peaks = "results/{sample}/data/idr_peaks.bed"
   output:
     json = "results/{sample}/configs/input_outliers.json"
   run:
     import json
+    import os
+    os.makedirs(os.path.dirname(output.json), exist_ok=True)
     data = {
       "0": {
         "signal": {"source": [input.plus, input.minus]},
@@ -57,17 +59,19 @@ rule gc_reference:
   output:
     gc_bed = "resources/reference/genomewide_gc.bed"
   params:
-    input_len = config["bpnet_params"]["input_len"],
-    out_prefix = "resources/reference/genomewide_gc"
+    input_len = config["bpnet_params"]["input_len"]
   conda: "../envs/bpnet.yaml"
   shell:
     """
+    OUT="{output.gc_bed}"
+    PREFIX=${{OUT%.bed}}
+
     bpnet-gc-reference \
-      --ref_fasta {input.fasta} --chrom_sizes {input.sizes} \
-      --output_prefix {params.out_prefix} \
-      --inputlen {params.input_len} --stride 1000
-    
-    mv {params.out_prefix}*.bed {output.gc_bed}
+      --ref_fasta {input.fasta} \
+      --chrom_sizes {input.sizes} \
+      --output_prefix $PREFIX \
+      --inputlen {params.input_len} \
+      --stride 1000
     """
 
 rule gc_background:
@@ -79,18 +83,19 @@ rule gc_background:
     negatives = "results/{sample}/data/gc_negatives.bed"
   params:
     flank = config["bpnet_params"]["flank_size"],
-    ratio = config["bpnet_params"]["neg_to_pos_ratio"],
-    out_dir = "results/{sample}/data",
-    out_prefix = "results/{sample}/data/gc_negatives"
+    ratio = config["bpnet_params"]["neg_to_pos_ratio"]
   conda: "../envs/bpnet.yaml"
   shell:
     """
+    NEG="{output.negatives}"
+    OUT_DIR=$(dirname "$NEG")
+    
     bpnet-gc-background \
-      --ref_fasta {input.fasta} --peaks_bed {input.peaks} \
-      --out_dir {params.out_dir} \
+      --ref_fasta {input.fasta} \
+      --peaks_bed {input.peaks} \
+      --out_dir $OUT_DIR \
       --ref_gc_bed {input.ref_gc} \
-      --output_prefix {params.out_prefix} \
-      --flank_size {params.flank} --neg_to_pos_ratio_train {params.ratio}
-      
-    mv {params.out_prefix}.bed {output.negatives}
+      --output_prefix gc_negatives \
+      --flank_size {params.flank} \
+      --neg_to_pos_ratio_train {params.ratio}
     """

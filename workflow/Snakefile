@@ -6,7 +6,35 @@ include: "rules/2_processing.smk"
 include: "rules/3_peaks.smk"
 include: "rules/4_inputs.smk"
 include: "rules/5_training.smk"
+include: "rules/6_denoising_and_attributions.smk"
+include: "rules/7_modisco.smk"
 
 rule all:
   input:
-    expand("results/{sample}/bpnet_model/evaluation/predictions_metrics.json", sample=config["samples"])
+    expand("results/{sample}/data/macs2/full_peaks.narrowPeak", sample=config['samples']),
+    expand("results/{sample}/predictions_test/predict.done", sample=config['samples']),
+    expand("results/{sample}/predictions_denoise/denoise.done", sample=config['samples']),
+    expand("results/{sample}/modisco/{head}/report.html", sample=config['samples'], head=['profile', 'counts'])
+
+rule download_data:
+  input: "resources/reference/index/build.done"
+
+rule process_data:
+  input: 
+    expand("results/{sample}/data/macs2/full_peaks.narrowPeak", sample=config['samples']),
+    expand("results/{sample}/data/idr_peaks.bed", sample=config['samples'])
+
+rule prepare_training:
+  input: expand("results/{sample}/configs/bpnet_params.json", sample=config['samples'])
+
+rule train_and_test:
+  input: expand("results/{sample}/predictions_test/predict.done", sample=config['samples'])
+
+rule denoise_and_shap:
+  input: 
+    expand("results/{sample}/predictions_denoise/denoise.done", sample=config['samples']),
+    expand("results/{sample}/shap/shap.done", sample=config['samples'])
+
+rule modisco_report:
+  input:
+    expand("results/p53_KO/modisco/{head}/report.html", head=['profile', 'counts'])

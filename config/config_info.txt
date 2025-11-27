@@ -13,3 +13,8 @@ mm10_no_alt_analysis_set_ENCODE_download_link: "https://www.encodeproject.org/fi
 # Where $CHROM_SIZES refers to the above link, and mm10-blacklist.bed is the link provided, the following command run on sherlock produces the blacklist file used in other p53 atac pancreas processing
 # ml load biology; ml load bedtools; bedtools slop -i mm10-blacklist.bed -g $CHROM_SIZES -b 1057 > mm10-blacklist.slop1057.bed
 mm10_blacklist_bed_download_link: "https://raw.githubusercontent.com/Boyle-Lab/Blacklist/master/lists/Blacklist_v1/mm10-blacklist.bed.gz"
+
+# HOCOMOCO v14 CORE
+# In v14, this single file is used for both Human and Mouse (see FAQ).
+# Note: Motif names will use Human nomenclature (e.g., SOX2).
+motif_url: "https://hocomoco14.autosome.org/final_bundle/hocomoco14/H14CORE/formatted_motifs/H14CORE_meme_format.meme"

@@ -49,3 +49,8 @@ rule build_bowtie_index:
     bowtie-build --threads {threads} {input.fasta} resources/reference/index/genome && \
     touch {output.marker}
     """
+
+rule download_motifs:
+  output: "resources/reference/motifs.txt"
+  params: config['reference']['motif_url']
+  shell: "wget -O {output} {params}"
