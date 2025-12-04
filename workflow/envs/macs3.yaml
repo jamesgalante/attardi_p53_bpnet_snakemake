@@ -1,0 +1,14 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - gcc_linux-64
+  - gxx_linux-64
+  - cython
+  - numpy
+  - zlib
+  - pip:
+    - macs3==3.0.1

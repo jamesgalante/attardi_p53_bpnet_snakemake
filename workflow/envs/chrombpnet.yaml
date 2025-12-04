@@ -1,0 +1,16 @@
+name: chrombpnet
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.8
+  - samtools
+  - bedtools
+  - ucsc-bedgraphtobigwig
+  - pybigwig
+  - meme
+  - cairo
+  - pycairo
+  - python-igraph
+  - pip:
+    - chrombpnet

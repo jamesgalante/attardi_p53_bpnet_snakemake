@@ -102,7 +102,8 @@ rule train_bpnet:
     slurm_partition = "akundaje",
     gpu = 1,
     tasks_per_gpu = 0,
-    runtime = "6h"
+    runtime = "6h",
+    mem = "24G"
   shell:
     """
     mkdir -p {output.model_dir}

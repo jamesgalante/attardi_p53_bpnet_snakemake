@@ -33,4 +33,6 @@ bpnet_params:
 
 other_MEF_tracks:
   reference:
-    atac:
+    atac: ["SRR18371806", "SRR18371805", "SRR18371804"] # rep1, rep2, rep3
+    pretrained_bias_url: "https://storage.googleapis.com/chrombpnet_data/input_files/bias_models/ATAC/ENCSR868FGK_bias_fold_0.h5" 
+

@@ -18,3 +18,6 @@ mm10_blacklist_bed_download_link: "https://raw.githubusercontent.com/Boyle-Lab/B
 # In v14, this single file is used for both Human and Mouse (see FAQ).
 # Note: Motif names will use Human nomenclature (e.g., SOX2).
 motif_url: "https://hocomoco14.autosome.org/final_bundle/hocomoco14/H14CORE/formatted_motifs/H14CORE_meme_format.meme"
+
+# The atac seq data comes from here: https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA817667&o=acc_s%3Aa
+# Which was from this experiment: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE198988
