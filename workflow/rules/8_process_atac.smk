@@ -149,7 +149,7 @@ rule call_peaks_pooled:
       -f BAMPE \
       -n pooled \
       -g {params.g_size} \
-      -q 0.01 \
+      -p 0.01 \
       --keep-dup all \
       --outdir $(dirname {output.peaks})
     """
@@ -160,7 +160,7 @@ rule filter_blacklist_pooled:
     blacklist = "resources/reference/blacklist.bed",
     sizes = "resources/reference/chrom.sizes"
   output: 
-    final_peaks = "results/atac/final/final_peaks.bed",
+    final_peaks = "results/atac/final/final_peaks.unfiltered.bed",
     extended_blacklist = temp("results/atac/final/extended_blacklist.bed")
   shell:
     """
