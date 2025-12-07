@@ -1,4 +1,3 @@
-# attardi_p53_bpnet_snakemake
 # BPNet and ChromBPNet Analysis of p53 Binding in Mouse Embryonic Fibroblasts
 
 ## Overview
