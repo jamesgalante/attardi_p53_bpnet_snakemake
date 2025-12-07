@@ -6,9 +6,9 @@ reference:
   motif_url: "https://hocomoco14.autosome.org/final_bundle/hocomoco14/H14CORE/formatted_motifs/H14CORE_meme_format.meme"
 
 samples:
-    #  p53_WT:
-    #    experiment: "SRR832846"
-    #    control: "SRR832847"
+  p53_WT:
+    experiment: "SRR832846"
+    control: "SRR832847"
   p53_KO:
     experiment: "SRR832848"
     control: "SRR832849"

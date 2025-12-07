@@ -15,9 +15,12 @@ include: "rules/10_post_chrombpnet.smk"
 rule all:
   input:
     expand("results/{sample}/data/macs2/full_peaks.narrowPeak", sample=config['samples']),
+	expand("results/{sample}/data/experiment_plus_full.bw", sample=config['samples']),
     expand("results/{sample}/predictions_test/predict.done", sample=config['samples']),
     expand("results/{sample}/predictions_denoise/denoise.done", sample=config['samples']),
-    expand("results/{sample}/modisco/{head}/report.html", sample=config['samples'], head=['profile', 'counts'])
+    expand("results/{sample}/modisco/{head}/report.html", sample=config['samples'], head=['profile', 'counts']),
+    "results/atac/chrombpnet_contribs/contribs.profile_scores.bw",
+    "results/atac/chrombpnet_preds/preds_bias.bw"
 
 rule download_data:
   input: "resources/reference/index/build.done"
@@ -25,7 +28,8 @@ rule download_data:
 rule process_data:
   input: 
     expand("results/{sample}/data/macs2/full_peaks.narrowPeak", sample=config['samples']),
-    expand("results/{sample}/data/idr_peaks.bed", sample=config['samples'])
+    expand("results/{sample}/data/idr_peaks.bed", sample=config['samples']),
+	expand("results/{sample}/data/experiment_plus_full.bw", sample=config['samples'])
 
 rule prepare_training:
   input: expand("results/{sample}/configs/bpnet_params.json", sample=config['samples'])
@@ -40,4 +44,9 @@ rule denoise_and_shap:
 
 rule modisco_report:
   input:
-    expand("results/p53_KO/modisco/{head}/report.html", head=['profile', 'counts'])
+    expand("results/{sample}/modisco/{head}/report.html", sample=config['samples'], head=['profile', 'counts'])
+
+rule chrombpnet:
+  input:
+    "results/atac/chrombpnet_contribs/contribs.profile_scores.bw",
+    "results/atac/chrombpnet_preds/preds_bias.bw"
